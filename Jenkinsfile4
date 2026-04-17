@@ -1,0 +1,31 @@
+pipeline {
+    agent any
+    stages {
+        stage('Clean Workspace') {
+            steps {
+                cleanWs()
+            }
+        }
+        stage('Checkout SCM') {
+            steps {
+                git branch: 'main',
+                    url: 'https://github.com/bilel-sage/githubeval.git'
+            }
+        }
+        stage('Install Docker') {
+            steps {
+                sh '''
+                    sudo apt-get update
+                    sudo apt-get install -y ca-certificates curl gnupg
+                    sudo install -m 0755 -d /etc/apt/keyrings
+                    curl -fsSL https://download.docker.com/linux/ubuntu/gpg | sudo gpg --dearmor -o /etc/apt/keyrings/docker.gpg
+                    sudo chmod a+r /etc/apt/keyrings/docker.gpg
+                    echo "deb [arch=$(dpkg --print-architecture) signed-by=/etc/apt/keyrings/docker.gpg] https://download.docker.com/linux/ubuntu jammy stable" | sudo tee /etc/apt/sources.list.d/docker.list > /dev/null
+                    sudo apt-get update
+                    sudo apt-get install -y docker-ce docker-ce-cli containerd.io
+
+
+git add Jenkinsfile1 Jenkinsfile2 Jenkinsfile3 Jenkinsfile4
+git commit -m "add Jenkinsfiles"
+git push origin main
+

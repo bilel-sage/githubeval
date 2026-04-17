@@ -1,0 +1,17 @@
+pipeline {
+    agent any
+    stages {
+        stage('Build Image Docker') {
+            steps {
+                sh '''
+cat > Dockerfile << DOCEOF
+FROM ubuntu
+RUN apt-get update && apt-get install -y nginx net-tools iproute2 python3 iputils-ping
+CMD ["nginx", "-g", "daemon off;"]
+DOCEOF
+sudo docker build -t my-nginx .
+                '''
+            }
+        }
+    }
+}
