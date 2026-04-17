@@ -4,9 +4,6 @@ pipeline {
         stage('Build Image Docker') {
             steps {
                 sh '''
-                    echo "FROM ubuntu" > Dockerfile
-                    echo "RUN apt-get update && apt-get install -y nginx net-tools iproute2 python3 iputils-ping" >> Dockerfile
-                    echo 'CMD ["nginx", "-g", "daemon off;"]' >> Dockerfile
                     docker build -t my-nginx .
                 '''
             }
